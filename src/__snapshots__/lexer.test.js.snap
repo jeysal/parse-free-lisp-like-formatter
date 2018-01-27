@@ -48,6 +48,33 @@ Array [
   },
 ]
 `;
+
+exports[`recognizes block comments 1`] = `
+Array [
+  Object {
+    "type": "leftPar",
+    "value": "(",
+  },
+  Object {
+    "type": "identifier",
+    "value": "a",
+  },
+  Object {
+    "type": "blockComment",
+    "value": "#|com
+      ment|#",
+  },
+  Object {
+    "type": "identifier",
+    "value": "b",
+  },
+  Object {
+    "type": "rightPar",
+    "value": ")",
+  },
+]
+`;
+
 exports[`recognizes line comments 1`] = `
 Array [
   Object {

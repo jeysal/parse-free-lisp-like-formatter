@@ -17,3 +17,12 @@ test('recognizes line comments', () => {
   `),
   ).toMatchSnapshot();
 });
+
+test('recognizes block comments', () => {
+  expect(
+    tokenize(`
+      (a #|com
+      ment|# b)
+  `),
+  ).toMatchSnapshot();
+});

@@ -91,6 +91,22 @@ const tokenize = code => {
       continue;
     }
 
+    // block comment
+    if (char === '#') {
+      let commentChar = code[++position];
+      if (commentChar === '|') {
+        let text = '#';
+
+        do {
+          text += commentChar;
+          commentChar = code[++position];
+        } while (!text.endsWith('|#'));
+
+        tokens.push({ type: 'blockComment', value: text });
+        continue;
+      }
+    }
+
     throw new Error(`unexpected character ${char} at position ${position}`);
   }
 
