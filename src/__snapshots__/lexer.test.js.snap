@@ -1,5 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`recognizes all regular token types 1`] = `
+Array [
+  Object {
+    "type": "leftPar",
+    "value": "(",
+  },
+  Object {
+    "type": "keyword",
+    "value": "lambda",
+  },
+  Object {
+    "type": "identifier",
+    "value": "id1",
+  },
+  Object {
+    "type": "prefix",
+    "value": "&",
+  },
+  Object {
+    "type": "identifier",
+    "value": "id2",
+  },
+  Object {
+    "type": "leftPar",
+    "value": "(",
+  },
+  Object {
+    "type": "operator",
+    "value": "=",
+  },
+  Object {
+    "type": "boolLiteral",
+    "value": "true",
+  },
+  Object {
+    "type": "numLiteral",
+    "value": "123",
+  },
+  Object {
+    "type": "rightPar",
+    "value": ")",
+  },
+  Object {
+    "type": "rightPar",
+    "value": ")",
+  },
+]
+`;
+
 exports[`recognizes all token types 1`] = `
 Array [
   Object {
@@ -41,6 +90,31 @@ Array [
   Object {
     "type": "rightPar",
     "value": ")",
+  },
+  Object {
+    "type": "rightPar",
+    "value": ")",
+  },
+]
+`;
+
+exports[`recognizes line comments 1`] = `
+Array [
+  Object {
+    "type": "leftPar",
+    "value": "(",
+  },
+  Object {
+    "type": "identifier",
+    "value": "a",
+  },
+  Object {
+    "type": "lineComment",
+    "value": ";comment",
+  },
+  Object {
+    "type": "identifier",
+    "value": "b",
   },
   Object {
     "type": "rightPar",
