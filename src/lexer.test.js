@@ -26,3 +26,7 @@ test('recognizes block comments', () => {
   `),
   ).toMatchSnapshot();
 });
+
+test('throws if the code includes an illegal char', () => {
+  expect(() => tokenize('(a # b)')).toThrowError();
+});
