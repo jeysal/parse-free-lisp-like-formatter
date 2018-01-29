@@ -52,7 +52,7 @@ const tokenize = code => {
       let numberLiteral = '';
 
       do {
-        if (numRegex.test(char)) numberLiteral += char;
+        numberLiteral += char;
         char = code[++position];
       } while (numRegex.test(char));
 
@@ -65,7 +65,7 @@ const tokenize = code => {
       let name = '';
 
       do {
-        if (alphaNumRegex.test(char)) name += char;
+        name += char;
         char = code[++position];
       } while (alphaNumRegex.test(char));
 
