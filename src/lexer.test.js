@@ -27,6 +27,26 @@ test('recognizes block comments', () => {
   ).toMatchSnapshot();
 });
 
+test('generates tokens for empty lines', () => {
+  expect(
+    tokenize(`
+      (a
+
+      b)
+    `),
+  ).toMatchSnapshot();
+});
+
+test('treats a line as empty even if it contains whitespace', () => {
+  expect(
+    tokenize(`
+      (a
+\t
+      b)
+    `),
+  ).toMatchSnapshot();
+});
+
 test('throws if the code includes an illegal char', () => {
   expect(() => tokenize('(a # b)')).toThrowError();
 });

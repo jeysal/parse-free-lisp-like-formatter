@@ -11,14 +11,24 @@ const alphaNumRegex = /[a-zA-Z0-9]/;
 const tokenize = code => {
   let position = 0;
   const tokens = [];
+
+  let consecutiveBreaks = 0;
+
   while (position < code.length) {
     let char = code[position];
+
+    // empty lines
+    if (char === '\n')
+      if (++consecutiveBreaks === 2)
+        tokens.push({ type: 'emptyLine', value: '' });
 
     // whitespace
     if (whitespaceRegex.test(char)) {
       position++;
       continue;
     }
+
+    consecutiveBreaks = 0;
 
     // parentheses
     if (char === '(') {

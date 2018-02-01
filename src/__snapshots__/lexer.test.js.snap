@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`generates tokens for empty lines 1`] = `
+Array [
+  Object {
+    "type": "leftPar",
+    "value": "(",
+  },
+  Object {
+    "type": "identifier",
+    "value": "a",
+  },
+  Object {
+    "type": "emptyLine",
+    "value": "",
+  },
+  Object {
+    "type": "identifier",
+    "value": "b",
+  },
+  Object {
+    "type": "rightPar",
+    "value": ")",
+  },
+]
+`;
+
 exports[`recognizes all regular token types 1`] = `
 Array [
   Object {
@@ -88,6 +113,31 @@ Array [
   Object {
     "type": "lineComment",
     "value": ";comment",
+  },
+  Object {
+    "type": "identifier",
+    "value": "b",
+  },
+  Object {
+    "type": "rightPar",
+    "value": ")",
+  },
+]
+`;
+
+exports[`treats a line as empty even if it contains whitespace 1`] = `
+Array [
+  Object {
+    "type": "leftPar",
+    "value": "(",
+  },
+  Object {
+    "type": "identifier",
+    "value": "a",
+  },
+  Object {
+    "type": "emptyLine",
+    "value": "",
   },
   Object {
     "type": "identifier",
