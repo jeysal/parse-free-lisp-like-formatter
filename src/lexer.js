@@ -4,7 +4,6 @@ const booleans = ['true', 'false'];
 const keywords = ['quote', 'lambda', 'defun', 'let', 'if', 'and', 'or'];
 
 const whitespaceRegex = /\s/;
-const noBreakRegex = /[^\r\n]/;
 const alphaRegex = /[a-zA-Z]/;
 const numRegex = /[0-9]/;
 const alphaNumRegex = /[a-zA-Z0-9]/;
@@ -85,7 +84,7 @@ const tokenize = code => {
       do {
         text += char;
         char = code[++position];
-      } while (noBreakRegex.test(char));
+      } while (char !== '\n');
 
       tokens.push({ type: 'lineComment', value: text });
       continue;
