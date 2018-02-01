@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest --coverage --watchAll"
   },
   "devDependencies": {
     "babel-jest": "^22.1.0",

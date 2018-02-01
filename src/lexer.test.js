@@ -27,6 +27,10 @@ test('recognizes block comments', () => {
   ).toMatchSnapshot();
 });
 
+test('throws if a "#" is not followed by a "|"', () => {
+  expect(() => tokenize('(a # b)')).toThrowError();
+});
+
 test('generates tokens for empty lines', () => {
   expect(
     tokenize(`
@@ -48,5 +52,5 @@ test('treats a line as empty even if it contains whitespace', () => {
 });
 
 test('throws if the code includes an illegal char', () => {
-  expect(() => tokenize('(a # b)')).toThrowError();
+  expect(() => tokenize('(a ~ b)')).toThrowError();
 });

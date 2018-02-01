@@ -4,11 +4,13 @@ test('inserts a hard line break after a top-level expression', () => {
   expect(
     print([
       { type: 'leftPar', value: '(' },
+      { type: 'leftPar', value: '(' },
+      { type: 'rightPar', value: ')' },
       { type: 'rightPar', value: ')' },
       { type: 'leftPar', value: '(' },
       { type: 'rightPar', value: ')' },
     ]),
-  ).toEqual('()\n()\n');
+  ).toEqual('(())\n()\n');
 });
 
 test('inserts a space between tokens, but not inside of parens', () => {
