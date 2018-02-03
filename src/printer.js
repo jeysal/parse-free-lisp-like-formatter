@@ -1,22 +1,45 @@
+const MAX_LINE_LENGTH = 80;
+
 const allowsSpaceBefore = type => type !== 'rightPar';
 const allowsSpaceAfter = type => !['leftPar', 'prefix'].includes(type);
 
 const print = tokens => {
   let code = '';
+
   let nestingLevel = 0;
-  let prevAllowsSpace = false;
+  let lineLength = 0;
+
   let consecutiveBreaks = 2;
+  let prevAllowsSpace = false;
 
   // helpers
   const breakLine = () => {
     code += '\n';
+    lineLength = 0;
     consecutiveBreaks++;
     prevAllowsSpace = false; // line break replaces space
   };
 
   // main loop
   for (const { type, value } of tokens) {
-    if (prevAllowsSpace && allowsSpaceBefore(type)) code += ' ';
+    let spaceBefore = prevAllowsSpace && allowsSpaceBefore(type);
+
+    // soft line breaks
+    let printLength = value.length + spaceBefore; // (spaceBefore ? 1 : 0)
+
+    if (lineLength + printLength > MAX_LINE_LENGTH) {
+      breakLine();
+
+      // No space after all, just the break
+      if (spaceBefore) printLength--;
+      spaceBefore = false;
+    }
+    lineLength += printLength;
+
+    // spacing
+    if (spaceBefore) {
+      code += ' ';
+    }
 
     // print token
     code += value;
@@ -34,5 +57,7 @@ const print = tokens => {
 
   return code;
 };
+
+print.MAX_LINE_LENGTH = MAX_LINE_LENGTH;
 
 module.exports = print;
