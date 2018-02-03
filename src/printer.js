@@ -7,6 +7,14 @@ const print = tokens => {
   let prevAllowsSpace = false;
   let consecutiveBreaks = 2;
 
+  // helpers
+  const breakLine = () => {
+    code += '\n';
+    consecutiveBreaks++;
+    prevAllowsSpace = false; // line break replaces space
+  };
+
+  // main loop
   for (const { type, value } of tokens) {
     if (prevAllowsSpace && allowsSpaceBefore(type)) code += ' ';
 
@@ -17,23 +25,11 @@ const print = tokens => {
     prevAllowsSpace = allowsSpaceAfter(type);
 
     // hard line break
-    if (type === 'emptyLine') {
-      while (consecutiveBreaks < 2) {
-        code += '\n';
-        consecutiveBreaks++;
-        prevAllowsSpace = false; // line break replaces space
-      }
-    } else {
-      consecutiveBreaks = 0;
-    }
+    if (type === 'emptyLine') while (consecutiveBreaks < 2) breakLine();
+    else consecutiveBreaks = 0;
+
     if (type === 'leftPar') nestingLevel++;
-    if (type === 'rightPar') {
-      if (--nestingLevel === 0) {
-        code += '\n';
-        consecutiveBreaks++;
-        prevAllowsSpace = false; // line break replaces space
-      }
-    }
+    if (type === 'rightPar' && --nestingLevel === 0) breakLine();
   }
 
   return code;
