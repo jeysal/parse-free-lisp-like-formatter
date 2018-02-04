@@ -1,4 +1,5 @@
 const MAX_LINE_LENGTH = 80;
+const INDENT_SIZE = 2;
 
 const allowsSpaceBefore = type => type !== 'rightPar';
 const allowsSpaceAfter = type => !['leftPar', 'prefix'].includes(type);
@@ -16,12 +17,25 @@ const print = tokens => {
   // helpers
   const breakLine = () => {
     code += '\n';
-    lineLength = 0;
     consecutiveBreaks++;
     prevAllowsSpace = false; // line break replaces space
   };
+
+  const softBreak = () => {
+    breakLine();
+
+    const indentSize = nestingLevel * INDENT_SIZE;
+    const indentation = Array(indentSize)
+      .fill(' ')
+      .join('');
+
+    code += indentation;
+    lineLength = indentSize;
+  };
   const hardBreak = () => {
     breakLine();
+
+    lineLength = 0;
     maxLineLength = MAX_LINE_LENGTH;
   };
 
@@ -29,11 +43,14 @@ const print = tokens => {
   for (const { type, value } of tokens) {
     let spaceBefore = prevAllowsSpace && allowsSpaceBefore(type);
 
+    // nesting decrement needs to happen before print
+    if (type === 'rightPar') nestingLevel--;
+
     // soft line breaks
     let printLength = value.length + spaceBefore; // (spaceBefore ? 1 : 0)
 
     if (lineLength + printLength > maxLineLength) {
-      breakLine();
+      softBreak();
 
       // No space after all, just the break
       if (spaceBefore) printLength--;
@@ -58,7 +75,7 @@ const print = tokens => {
     else consecutiveBreaks = 0;
 
     if (type === 'leftPar') nestingLevel++;
-    if (type === 'rightPar' && --nestingLevel === 0) hardBreak();
+    if (type === 'rightPar' && nestingLevel === 0) hardBreak();
   }
 
   return code;
