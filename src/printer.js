@@ -1,4 +1,4 @@
-const MAX_LINE_LENGTH = 80;
+const MAX_LINE_LENGTH = 42;
 const INDENT_SIZE = 2;
 
 const allowsSpaceBefore = type => type !== 'rightPar';
