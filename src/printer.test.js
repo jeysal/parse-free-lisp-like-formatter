@@ -32,7 +32,7 @@ test('inserts an empty line if such a token occurs', () => {
       { type: 'emptyLine', value: '' },
       { type: 'rightPar', value: ')' },
     ]),
-  ).toEqual('(\n\n)\n');
+  ).toEqual('(\n\n  )\n');
 });
 
 test('inserts only one empty line even if it follows a hard line break', () => {
@@ -45,6 +45,17 @@ test('inserts only one empty line even if it follows a hard line break', () => {
       { type: 'rightPar', value: ')' },
     ]),
   ).toEqual('()\n\n()\n');
+});
+
+test('indents after an empty line', () => {
+  expect(
+    print([
+      { type: 'leftPar', value: '(' },
+      { type: 'emptyLine', value: '' },
+      { type: 'identifier', value: 'x' },
+      { type: 'rightPar', value: ')' },
+    ]),
+  ).toEqual('(\n\n  x)\n');
 });
 
 test('inserts a soft line break if the next token does not fit on the same line', () => {

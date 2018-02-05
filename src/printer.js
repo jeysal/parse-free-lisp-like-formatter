@@ -71,8 +71,12 @@ const print = tokens => {
     prevAllowsSpace = allowsSpaceAfter(type);
 
     // hard line break
-    if (type === 'emptyLine') while (consecutiveBreaks < 2) hardBreak();
-    else consecutiveBreaks = 0;
+    if (type === 'emptyLine') {
+      if (consecutiveBreaks === 0) hardBreak();
+      softBreak();
+    } else {
+      consecutiveBreaks = 0;
+    }
 
     if (type === 'leftPar') nestingLevel++;
     if (type === 'rightPar' && nestingLevel === 0) hardBreak();
