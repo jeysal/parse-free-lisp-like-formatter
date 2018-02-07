@@ -80,6 +80,7 @@ const print = tokens => {
 
     if (type === 'leftPar') nestingLevel++;
     if (type === 'rightPar' && nestingLevel === 0) hardBreak();
+    if (type === 'lineComment') hardBreak();
   }
 
   return code;

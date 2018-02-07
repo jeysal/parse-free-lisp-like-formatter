@@ -13,6 +13,16 @@ test('inserts a hard line break after a top-level expression', () => {
   ).toEqual('(())\n()\n');
 });
 
+test('inserts a hard line break after a line comment', () => {
+  expect(
+    print([
+      { type: 'lineComment', value: '; asdf' },
+      { type: 'leftPar', value: '(' },
+      { type: 'rightPar', value: ')' },
+    ]),
+  ).toEqual('; asdf\n()\n');
+});
+
 test('inserts a space between tokens, but not inside of parens', () => {
   expect(
     print([
