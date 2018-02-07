@@ -1,7 +1,7 @@
 {
   "name": "non-parsing-lisp-like-formatter",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "author": "Tim Seckinger <seckinger.tim@gmail.com>",
   "license": "MIT",
   "private": true,
