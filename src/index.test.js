@@ -1,8 +1,7 @@
 const format = require('.');
+const { format: reasonFormat } = require('./reasonml/index.bs');
 
-test('example algorithms', () => {
-  expect(
-    format(`
+const inputCode = `
     ; factorial
     (defun factorial(n)(if(=n 0)1(*n(factorial(-n 1)))))
 
@@ -18,6 +17,12 @@ test('example algorithms', () => {
             (1+ numberofpeople)
             (birthdayparadox newprobability
                              (1+ numberofpeople)))))
-      `),
-  ).toMatchSnapshot();
+`;
+
+test('example algorithms', () => {
+  expect(format(inputCode)).toMatchSnapshot();
+});
+
+test.skip('reasonml works the same', () => {
+  expect(reasonFormat(inputCode)).toEqual(format(inputCode));
 });
