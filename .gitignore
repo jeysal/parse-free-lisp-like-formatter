@@ -1,2 +1,7 @@
 node_modules/
 coverage/
+lib/
+
+.merlin
+.bsb.lock
+*.bs.js
