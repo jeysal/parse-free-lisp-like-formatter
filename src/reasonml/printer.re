@@ -2,6 +2,10 @@ open Token;
 
 let maxLineLength = 42;
 
+let indentSize = 2;
+
+let indent = nestingLevel => String.make(nestingLevel * indentSize, ' ');
+
 let rec print = (~consecutiveBreaks=NoBreaks, ~nestingLevel=0, tokens) =>
   switch tokens {
   | [] => ""
@@ -28,11 +32,14 @@ let rec print = (~consecutiveBreaks=NoBreaks, ~nestingLevel=0, tokens) =>
       | (LineComment(_), _, _)
       | (RightPar, _, 1) => ("\n", SingleBreak)
       | (EmptyLine, _, _) => (
-          switch consecutiveBreaks {
-          | NoBreaks => "\n\n"
-          | SingleBreak => "\n"
-          | MultipleBreaks => ""
-          },
+          (
+            switch consecutiveBreaks {
+            | NoBreaks => "\n\n"
+            | SingleBreak => "\n"
+            | MultipleBreaks => ""
+            }
+          )
+          ++ indent(nestingLevel),
           MultipleBreaks
         )
       /* no space after */
