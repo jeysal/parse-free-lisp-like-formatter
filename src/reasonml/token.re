@@ -10,3 +10,8 @@ type token =
   | LineComment(string)
   | BlockComment(string)
   | EmptyLine;
+
+type consecutiveBreaks =
+  | NoBreaks
+  | SingleBreak
+  | MultipleBreaks;

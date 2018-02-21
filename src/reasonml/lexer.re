@@ -2,11 +2,6 @@ open Token;
 
 exception IllegalCharacter(string);
 
-type consecutiveBreaks =
-  | NoBreaks
-  | SingleBreak
-  | MultipleBreaks;
-
 let rec tokenize =
         (~consecutiveBreaks=NoBreaks, ~current=?, code)
         : list(token) => {
