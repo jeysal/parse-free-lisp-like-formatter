@@ -23,6 +23,6 @@ test('example algorithms', () => {
   expect(format(inputCode)).toMatchSnapshot();
 });
 
-test.skip('reasonml works the same', () => {
+test('reasonml works the same', () => {
   expect(reasonFormat(inputCode)).toEqual(format(inputCode));
 });

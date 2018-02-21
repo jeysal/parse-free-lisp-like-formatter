@@ -1,5 +1,7 @@
 open Token;
 
+let maxLineLength = 42;
+
 let rec print = (~nestingLevel=0, tokens) =>
   switch tokens {
   | [] => ""
