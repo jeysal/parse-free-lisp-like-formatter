@@ -35,6 +35,7 @@ let whitespaceBefore =
       ~previousToken,
       ~consecutiveBreaks,
       ~lineLength,
+      ~lineLengthLimit,
       ~nestingLevel
     ) => {
   let whitespace =
@@ -48,7 +49,7 @@ let whitespaceBefore =
     | _ => " "
     };
   let printLength = lineLength + String.length(whitespace) + currentCodeLength;
-  if (printLength > maxLineLength && consecutiveBreaks == NoBreaks) {
+  if (printLength > lineLengthLimit && consecutiveBreaks == NoBreaks) {
     /* insert soft line break */
     let indentation = indent(nestingLevel);
     {
@@ -102,6 +103,7 @@ let rec print =
           ~consecutiveBreaks=NoBreaks,
           ~nestingLevel=0,
           ~lineLength=0,
+          ~transientLineLengthLimit=maxLineLength,
           ~previousToken=?,
           tokens
         ) =>
@@ -126,6 +128,7 @@ let rec print =
         ~previousToken,
         ~consecutiveBreaks,
         ~lineLength,
+        ~lineLengthLimit=transientLineLengthLimit,
         ~nestingLevel=nestingLevelBeforeToken
       );
     /* after token */
