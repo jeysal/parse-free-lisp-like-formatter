@@ -1,5 +1,5 @@
 {
-  "name": "non-parsing-lisp-like-formatter",
+  "name": "parse-free-lisp-like-formatter",
   "version": "0.1.0",
   "main": "src/index.js",
   "author": "Tim Seckinger <seckinger.tim@gmail.com>",
