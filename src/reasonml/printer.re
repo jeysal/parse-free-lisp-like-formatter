@@ -116,7 +116,7 @@ let rec print =
       currentToken == RightPar ? nestingLevel - 1 : nestingLevel;
     let nestingLevelAfterToken =
       currentToken == LeftPar ? nestingLevel + 1 : nestingLevelBeforeToken;
-    /* before token */
+    /* before token, whitespace */
     let {
       whitespace: leadingWhitespace,
       newLineLength: lineLengthBeforeToken,
@@ -134,7 +134,10 @@ let rec print =
     /* after token */
     let lineLengthAfterToken =
       lineLengthBeforeToken + String.length(currentCode);
+    let transientLineLengthLimitAfterToken =
+      Js.Math.max_int(transientLineLengthLimit, lineLengthAfterToken);
     let consecutiveBreaksAfterToken = consecutiveBreaksBeforeToken;
+    /* whitespace */
     let {whitespace: trailingWhitespace, newLineLength, newConsecutiveBreaks} =
       whitespaceAfter(
         ~currentToken,
@@ -142,12 +145,17 @@ let rec print =
         ~lineLength=lineLengthAfterToken,
         ~consecutiveBreaks=consecutiveBreaksAfterToken
       );
+    /* reset transient line length limit after a hard break */
+    let newTransientLineLengthLimit =
+      newConsecutiveBreaks == NoBreaks ?
+        transientLineLengthLimitAfterToken : maxLineLength;
     /* recursively print remaining tokens */
     let restCode =
       print(
         rest,
-        ~previousToken=currentToken,
         ~lineLength=newLineLength,
+        ~transientLineLengthLimit=newTransientLineLengthLimit,
+        ~previousToken=currentToken,
         ~nestingLevel=nestingLevelAfterToken,
         ~consecutiveBreaks=newConsecutiveBreaks
       );
